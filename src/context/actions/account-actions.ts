@@ -3,7 +3,7 @@ import { RootState } from "../store"
 import axios from "axios"
 import { uiActions } from "../slices/uiSlice"
 import { UserEstado, UserRol } from "@/core/type/enums"
-import { GetEstablecimientos } from "@/core/repository/establecimiento"
+import { GetEstablecimientos } from "@/core/repository/empresa/establecimiento"
 import { accountActions } from "../slices/accountSlice"
 import { adminRoutes, rootEstablecimiento } from "@/core/util/routes"
 import { toast } from "react-toastify"
@@ -71,11 +71,11 @@ export const login = (email:string,password:string) :ThunkAction<void,RootState,
                            window.location.assign(adminRoutes.manage.establecimientos)
                            break;
                        case UserRol.CLIENT_USER_ROL:
-                           const res = await fetch("../../api/account/establecimientos")
-                           const data:EstablecimientoUser[] = await res.json()
-                           if(data.length >0){
-                               window.location.assign(`${rootEstablecimiento}/${data[0].uuid}`)
-                           }
+                        //    const res = await fetch("../../api/account/establecimientos")
+                        //    const data:EstablecimientoUser[] = await res.json()
+                        //    if(data.length >0){
+                               window.location.assign(`/admin`)
+                        //    }
                            break;
                     }
                     if(typeof window != undefined){

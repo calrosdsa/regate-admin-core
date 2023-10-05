@@ -1,19 +1,27 @@
 "use client"
 
 import Deposito from "@/components/admin/billing/Deposito";
+import DepositoMenuOption from "@/components/admin/billing/DepositoMenuOption";
 import ReservaList from "@/components/reservas/ReservaList";
 import DialogReservaDetail from "@/components/reservas/dialog/DialogReservaDetail";
+import MenuLayout from "@/components/util/button/MenuLayout";
+import UploadImageDialog from "@/components/util/dialog/UploadImageDialog";
 import Pagination from "@/components/util/pagination/Pagination";
+import { downloadReporteDeposito } from "@/context/actions/download-actions";
+import { API_URL, unexpectedError } from "@/context/config";
 import { useAppDispatch } from "@/context/reduxHooks";
 import { uiActions } from "@/context/slices/uiSlice";
-import { GetDeposito, GetReservasPagadas } from "@/core/repository/billing";
+import { GetDeposito, GetReservasPagadas, UploadComprobanteDeposito } from "@/core/repository/empresa/billing";
 import { GetReservaDetail } from "@/core/repository/reservas";
-import { Order, OrderQueue } from "@/core/type/enums";
+import { Order, OrderQueue, ReporteId } from "@/core/type/enums";
 import { adminRoutes } from "@/core/util/routes";
 import { Tab } from "@headlessui/react";
+import axios from "axios";
+import moment from "moment";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const Page = ({ params }: { params: { uuid: string } }) =>{
     const searchParams = useSearchParams();
@@ -28,7 +36,9 @@ const Page = ({ params }: { params: { uuid: string } }) =>{
     const [reservaDetail,setReservaDetail] = useState<ReservaDetail | null>(null)
     const [loading,setLoading] = useState(false)
     const [openReservaDetailDialog,setOpenReservaDetailDialog] = useState(false)
+    const [openUploadImageDialog,setOpenUploadImageDialog] = useState(false)
     const [paginationProps,setPaginationProps] = useState<PaginationProps | undefined>(undefined)
+    const [comprobanteFile,setComprobanteFile] = useState<File | undefined>(undefined)
     const [order,setOrder] = useState<ReservaOrder>({
         order:Order.DESC,
         queue:OrderQueue.CREATED
@@ -139,6 +149,34 @@ const Page = ({ params }: { params: { uuid: string } }) =>{
                 getDeposito()
         }
     }
+    const downloadReport = async()=>{
+        if(deposito == null) return
+       dispatch(downloadReporteDeposito(deposito.id,ReporteId.DEPOSITO))
+    }
+
+    const uploadComprobante = async() => {
+        try{
+            if(deposito == null ) return
+            if(comprobanteFile == undefined) return
+            dispatch(uiActions.setLoaderDialog(true))
+            const formData = new FormData()
+            formData.append("id",deposito.id.toString())
+            formData.append("parentId",deposito.parent_id.toString())
+            formData.append("date_paid",deposito.date_paid.slice(0,10))
+            formData.append("file",comprobanteFile)
+            const data:string = await UploadComprobanteDeposito(formData) 
+            setDeposito({
+                ...deposito,
+                comprobante_url:data
+            })
+            toast.success("¡Los cambios realizados han sido guardados exitosamente!")
+            dispatch(uiActions.setLoaderDialog(false))
+        }catch(err){
+            dispatch(uiActions.setLoaderDialog(false))
+            toast.error(unexpectedError)
+            console.log(err)
+        }
+    }
 
     useEffect(()=>{
         if(reservaDetail != null){
@@ -154,7 +192,7 @@ const Page = ({ params }: { params: { uuid: string } }) =>{
     },[])
     return(
         <>
-        <div className="default-padding">
+        <div className="default-padding h-screen">
             <div className="flex space-x-2 items-center">
                 <Link href={adminRoutes.depositos} className="link">Depositos</Link>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
@@ -191,8 +229,12 @@ const Page = ({ params }: { params: { uuid: string } }) =>{
 
             <Tab.Panels className={"p-2"}>
             <Tab.Panel className={"w-full"}>
-                <div className="pb-3">
-                    <button className="button">Descargar Reporte</button>
+                <div className="pb-3 flex justify-between">
+                    <button onClick={()=>downloadReport()} className="button">Descargar Reporte</button>
+                    <DepositoMenuOption
+                    openUploadDialogComprobante={()=>setOpenUploadImageDialog(true)}
+                    deposito={deposito}
+                    />
                 </div>
                 <Deposito
                 deposito={deposito}
@@ -204,11 +246,10 @@ const Page = ({ params }: { params: { uuid: string } }) =>{
                 
         
               <span className="text-xl font-medium">Reservas 
-              <span className="text-xl text-gray-500  font-normal">({reservas.length})</span></span>
+              <span className="text-xl text-gray-500  font-normal">({paginationProps != undefined && paginationProps.count})</span></span>
             <div className="pt-2 pb-4 flex flex-wrap justify-between md:items-center relative h-[70px]">
                 
-        <div className="flex space-x-3 py-2">
-                
+        <div className="flex space-x-3 py-2">      
                 <button className="button-inv" disabled={loading}  onClick={()=>{
                     getReservas(filterData,1)
                     }}>
@@ -285,6 +326,23 @@ const Page = ({ params }: { params: { uuid: string } }) =>{
         data={reservaDetail}
         />
         }
+
+        {(openUploadImageDialog && deposito != null)&&
+            <UploadImageDialog
+            open={openUploadImageDialog}
+            src={deposito.comprobante_url}
+            close={()=>{
+                setOpenUploadImageDialog(false)
+                setComprobanteFile(undefined)
+            }}
+            setFile={(e)=>setComprobanteFile(e)}
+            uploadComprobante={()=>{
+                uploadComprobante()
+                setOpenUploadImageDialog(false)
+            }}
+            isFile={comprobanteFile != undefined}
+            />
+            }
         </>
     )
 }

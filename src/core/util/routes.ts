@@ -5,12 +5,16 @@ export const rootEstablecimiento = "/establecimiento"
 
 export const adminRoutes = {
     manage:{
+        empresas:`${rootAdmin}/manage/empresas`,
         establecimientos:`${rootAdmin}/manage/establecimientos`,
         users:`${rootAdmin}/manage/users`
     },
     depositos:`${rootAdmin}/depositos`,
     dashboad:{
         main:`${rootAdmin}/dashboard`
+    },
+    system:{
+        cronjobs:`${rootAdmin}/system/cron-jobs`
     }
 }
 

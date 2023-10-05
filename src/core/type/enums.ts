@@ -57,3 +57,12 @@ export enum TypeOfDate {
     month,
     year,
 }
+
+export enum ReporteId{
+    DEPOSITO,
+}
+
+export enum DepositoEstado {
+    PENDIENTE =1,
+    EMITIDO = 2
+}

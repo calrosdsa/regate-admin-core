@@ -9,17 +9,19 @@ import { UserRol } from '@/core/type/enums'
 import { getEstablecimientos } from '@/context/actions/account-actions'
 import Image from 'next/image'
 import Loading from '@/components/util/loaders/Loading'
-import { CreateUser } from '@/core/repository/manage'
+import { CreateUser } from '@/core/repository/empresa/manage'
 import ButtonWithLoader from '@/components/util/button/ButtonWithLoader'
-import { GetEstablecimientos } from '@/core/repository/establecimiento'
+import { GetEstablecimientos } from '@/core/repository/empresa/establecimiento'
 import { uiActions } from '@/context/slices/uiSlice'
 import InputWithIcon from '@/components/util/input/InputWithIcon'
 import { unexpectedError } from '@/context/config'
+import DialogLayout from '@/components/util/dialog/DialogLayout'
 
  interface Props{
    openModal:boolean
    closeModal:()=>void
    refreshUsers:()=>void
+   empresaId:number
  }
 
  type Data = {
@@ -34,7 +36,7 @@ import { unexpectedError } from '@/context/config'
  }
 
 const CreateUserNegocioDialog:React.FC<Props>=({
-  openModal,closeModal,refreshUsers,
+  openModal,closeModal,refreshUsers,empresaId
 })=> {
     // const [openDialogConfirm,setOpenDialogConfirm] = useState(false)
     const dispatch = useAppDispatch()
@@ -92,7 +94,8 @@ const CreateUserNegocioDialog:React.FC<Props>=({
         email:email,
         username:username,
         rol:rol as number,
-        establecimientos:establecimientosIds
+        establecimientos:establecimientosIds,
+        empresa_id:empresaId
     }
     const res:Response = await CreateUser(request)
     const data = await res.json()
@@ -130,9 +133,11 @@ const CreateUserNegocioDialog:React.FC<Props>=({
           email:email,
           username:username,
           rol:rol as number,
-          establecimientos:[]
+          establecimientos:[],
+          empresa_id:empresaId
       }
       const res = await CreateUser(request)
+      console.log(res)
       refreshUsers()
       toast.success("Se ha agragado un nuevo usuario")
       closeModal()
@@ -146,37 +151,13 @@ const CreateUserNegocioDialog:React.FC<Props>=({
 
   return (
     <>
-    <Transition appear show={openModal} as={Fragment}>
-    <Dialog as='div' className="relative z-20" open={openModal} onClose={() =>{
-        closeModal()
-    }}>
-    <Transition.Child
-            as={Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-            >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
-      </Transition.Child>
-        <div className='fixed inset-0 max-w-lg  mx-auto top-1/2 -translate-y-1/2 '>
-      <Transition.Child
-                as={Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-      <Dialog.Panel>
+   <DialogLayout
+   title='Crear administrador'
+   className=' max-w-lg'
+   open={openModal}
+   close={closeModal}
+    >
         <div className='rounded-lg bg-white h-[62vh] overflow-auto'>
-            <DialogHeader
-            title={currentTab == Tab.MAIN ? 'Crear usuario' : "¿A qué complejos tendrá acceso el usuario?"}
-            close={()=>closeModal()}
-            />
             {Tab.MAIN == currentTab &&
             <form className='p-2' onSubmit={onSubmit}>
                 <InputWithIcon
@@ -341,11 +322,7 @@ const CreateUserNegocioDialog:React.FC<Props>=({
             </div>
             }
         </div>
-    </Dialog.Panel>
-    </Transition.Child>
-    </div>
-    </Dialog>
-    </Transition>
+    </DialogLayout>
     </>
   )
 }

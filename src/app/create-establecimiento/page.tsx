@@ -7,7 +7,7 @@ import InputWithMaxLength from "@/components/util/input/InputWithMaxLength";
 import TextAreaWithMaxLength from "@/components/util/input/TextAreaWithMaxLength";
 import { MapComponent } from "@/components/register/MapComponent";
 import UploadImage from "@/components/util/input/UploadImage";
-import { CreateEstablecimiento } from "@/core/repository/establecimiento";
+import { CreateEstablecimiento } from "@/core/repository/empresa/establecimiento";
 import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css';

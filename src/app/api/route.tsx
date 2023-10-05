@@ -1,13 +1,13 @@
 import axios from "axios";
 import { NextResponse } from "next/server";
 import { cookies } from 'next/headers'; // Import cookies
-import { API_URL } from "@/context/config";
+import { API_URL, API_URL_CORE } from "@/context/config";
 export async function POST(request:Request) {
    try{
       const nextCookies = cookies(); // Get cookies object
       
       const body = await request.json();
-      const res = await fetch(`${API_URL}/account/admin/login/`,{
+      const res = await fetch(`${API_URL_CORE}/auth/login/`,{
             method:"post",
             body:JSON.stringify(body),
             headers:{

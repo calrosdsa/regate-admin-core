@@ -30,11 +30,12 @@ const toBase64 = (str: string) =>
 //   `data:image/gif;base64,R0lGODlhAQABAPAA${
 //     triplet(0, r, g) + triplet(b, 255, 255)
 //   }/yH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==`
-const CommonImage = ({src,h,w,className}:{
+const CommonImage = ({src,h,w,className,alt}:{
     src:string | undefined
     h:number
     w:number
     className:string
+    alt?:string
   }) => {
     return(
       <>
@@ -42,7 +43,7 @@ const CommonImage = ({src,h,w,className}:{
         <Image
         src={src}
         placeholder="blur"
-        alt="sdmkas"
+        alt={alt || ""}
         blurDataURL={`data:image/svg+xml;base64,${toBase64(shimmer(w, h))}`}
         // blurDataURL={rgbDataURL(233, 233, 233)}
         width={w}

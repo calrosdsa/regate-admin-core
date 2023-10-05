@@ -5,17 +5,19 @@ import ButtonWithLoader from "../button/ButtonWithLoader";
 
 const UploadImage = ({setFile,src,save,id="file",width="w-44",height="h-44"}:{
     setFile:(e:File)=>void
-    src?:string
+    src:string | null | undefined
     width?:string
     height?:string
     save?:(setLoading:(e:boolean)=>void)=>void
     id?:string
 }) => {
     const [loading,setLoading] = useState(false)
-    const [source,setSource] = useState("/images/img-default.png")
+    const [source,setSource] = useState("")
+    const [nameFile,setNameFile] = useState("")
     const uploadImage = (e:ChangeEvent<HTMLInputElement>)=>{     
         if(e.target.files?.length != undefined){
             const file = e.target.files[0]
+            setNameFile(file.name)
             setFile(file)
             const fileUrl = URL.createObjectURL(file)
             setSource(fileUrl)
@@ -29,19 +31,23 @@ const UploadImage = ({setFile,src,save,id="file",width="w-44",height="h-44"}:{
         }
     },[src])
     return(
-        <div className="grid sm:grid-cols-2  place-items-center ">
+        <div className="grid place-items-center ">
+
+
+              
             <div className="w-full h-44">
             <CommonImage
             src={source.includes("https") ? `${source}?${Date.now()}` : source}
             w={250}
             h={200}
-            className={`${width} ${height} rounded object-cover`}
-            // alt={""}
+            className={`${width} ${height} rounded object-contain`}
+            alt={nameFile}
             />
             </div>
-            <div className="flex justify-between w-full mt-2 sm:w-max sm:grid sm:gap-y-2">
-            <label htmlFor={id} className="button h-10">
-                Upload Image
+
+            <div className="flex justify-between w-max mt-2 sm:w-max sm:grid sm:gap-y-2">
+            <label htmlFor={id} className="button-inv ">
+                Upload File
             <input id={id} className="hidden" type="file" onChange={uploadImage}/>
             </label>
             {save != undefined &&

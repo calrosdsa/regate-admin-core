@@ -1,7 +1,7 @@
 "use client"
 
 import Loading from "@/components/util/loaders/Loading"
-import { GetEstablecimientos } from "@/core/repository/establecimiento"
+import { GetEstablecimientos } from "@/core/repository/empresa/establecimiento"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 

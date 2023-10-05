@@ -5,7 +5,7 @@ import '../../../../style/mapbox.css'
 import { MapComponent } from '@/components/register/MapComponent';
 import { useAppDispatch, useAppSelector } from '@/context/reduxHooks';
 import { uiActions } from '@/context/slices/uiSlice';
-import { UpdateEstablecimiento, UpdateEstablecimientoAddress, UpdateEstablecimientoPhoto, getEstablecimiento } from '@/core/repository/establecimiento';
+import { UpdateEstablecimiento, UpdateEstablecimientoAddress, UpdateEstablecimientoPhoto, getEstablecimiento } from '@/core/repository/empresa/establecimiento';
 import EditComponent from '@/components/util/input/EditComponent';
 import EditComponentImage from '@/components/util/input/EditComponentImage';
 import { PaidType } from '@/core/type/enums';

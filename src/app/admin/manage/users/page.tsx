@@ -9,7 +9,7 @@ import Loading from "@/components/util/loaders/Loading"
 import { useAppDispatch } from "@/context/reduxHooks"
 import { uiActions } from "@/context/slices/uiSlice"
 import { GetEstablecimientosUserByUuid } from "@/core/repository/account"
-import { GetUsersEmpresa, UpdateUserEstado } from "@/core/repository/manage"
+import { GetUsersEmpresa, UpdateUserEstado } from "@/core/repository/empresa/manage"
 import { UserEstado, UserRol } from "@/core/type/enums"
 import { appendSerachParams } from "@/core/util/routes"
 import moment from "moment"
@@ -53,7 +53,7 @@ export default function Page(){
     const getUsersEmpresa = async() => {
         try{
             setLoadingUsers(true)
-            const res:User[] = await GetUsersEmpresa()
+            const res:User[] = await GetUsersEmpresa(1)
             setUsers(res)
             if(res.length > 0){
                 if(uuid != null){
@@ -78,7 +78,7 @@ export default function Page(){
             setCurrentUser(user)
             const dataRequest = {
                 uuid:user.user_id,
-                empresa_id:user.empresa_id,
+                // empresa_id:user.empresa_id,
                 rol:user.rol
             }
             setLoadingEstablecimientos(true)
@@ -139,6 +139,7 @@ export default function Page(){
         openModal={openDialogCreateUser}
         closeModal={()=>setOpenDialogCreateUser(false)}
         refreshUsers={()=>getUsersEmpresa()}
+        empresaId={1}
         />
     }
         <div className="">

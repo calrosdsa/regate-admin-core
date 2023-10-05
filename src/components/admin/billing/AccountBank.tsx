@@ -2,7 +2,7 @@ import EditComponent from "@/components/util/input/EditComponent";
 import EditComponentSelect from "@/components/util/input/EditComponentSelect";
 import Loader from "@/components/util/loaders/Loader";
 import { unexpectedError } from "@/context/config";
-import { UpdateBankAccount } from "@/core/repository/billing";
+import { UpdateBankAccount } from "@/core/repository/empresa/billing";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 

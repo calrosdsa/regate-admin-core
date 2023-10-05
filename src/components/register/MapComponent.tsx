@@ -3,7 +3,7 @@ import '../../style/mapbox.css'
 import { ChangeEvent, Fragment, useEffect, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import { MB_API_KEY } from '@/context/config';
-import { getPlaces } from '@/core/repository/establecimiento';
+import { getPlaces } from '@/core/repository/empresa/establecimiento';
 import Input from 'postcss/lib/input';
 import InputWithIcon from '../util/input/InputWithIcon';
 import ButtonWithLoader from '../util/button/ButtonWithLoader';

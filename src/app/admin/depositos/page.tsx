@@ -1,9 +1,10 @@
 "use client"
 import AccountBank from "@/components/admin/billing/AccountBank";
 import Depositos from "@/components/admin/billing/Depositos";
+import DepositosEmpresa from "@/components/admin/billing/DepositosEmpresa";
 import Pagination from "@/components/util/pagination/Pagination";
 import { useAppDispatch } from "@/context/reduxHooks";
-import { GetBankAccount, GetBanks, GetDepositos } from "@/core/repository/billing";
+import { GetBankAccount, GetBanks, GetDepositos, GetDepositosEmpresa, GetDepositosFromDepositoEmpresa } from "@/core/repository/empresa/billing";
 import { Order } from "@/core/type/enums";
 import { Tab } from "@headlessui/react"
 import Link from "next/link";
@@ -22,9 +23,10 @@ const Page = () => {
     const [accountBank,setAccontBank] = useState<AccountBank | null>(null)
     const [loadingAccountBank,setLoadingAccountBank] = useState(false)
     const [loadingDepositos,setLoadingDepositos] = useState(false)
-    const [depositosResponse,setDepositosResponse] = useState<DepositoPaginationResponse  | undefined>(undefined)
+    const [depositosResponse,setDepositosResponse] = useState<DepositoEmpresaPaginationResponse  | undefined>(undefined)
     const [order,setOrder] =useState(Order.DESC)
     const [paginationProps,setPaginationProps] = useState<PaginationProps | undefined>(undefined)
+    // const [loadingDepositosFromEmpresa,setLoadingDepositosFromEmpresa] = useState
 
 
     const appendSerachParams = (key:string,value:string)=>{
@@ -45,13 +47,15 @@ const Page = () => {
             console.log(err)
         }
     }
-    const getDeposits = async() =>{
+    const getDeposits = async(page:number) =>{
         try{
             // setDepositosResponse({...depositosResponse,
             //     results:[]
             // })
             setLoadingDepositos(true)
-            const res:DepositoPaginationResponse = await GetDepositos(page)
+            const data:DepositoFilterData = {
+            }
+            const res:DepositoEmpresaPaginationResponse = await GetDepositosEmpresa(data,page)
             setPaginationProps({
                 pageSize:res.page_size,
                 count:res.count > 0 ? res.count : 0,
@@ -82,6 +86,13 @@ const Page = () => {
             return
         }else {
             const pagePrev = paginationProps.currentPage -1
+            appendSerachParams("page",pagePrev.toString())
+            // getReservas(filterData,page)
+            setPaginationProps({
+                ...paginationProps,
+                currentPage:pagePrev
+            })
+            getDeposits(Number(pagePrev))
             // appendSerachParams("page",pagePrev.toString
             // getReservas(filterData,pagePrev)
         }
@@ -92,6 +103,14 @@ const Page = () => {
             return
         }else {
             const nextPage = paginationProps.currentPage + 1
+            appendSerachParams("page",nextPage.toString())
+            // getReservas(filterData,page)
+            setPaginationProps({
+                ...paginationProps,
+                currentPage:nextPage
+            })
+            getDeposits(Number(nextPage))
+            
             // appendSerachParams("page",nextPage.toString
             // getReservas(filterData,nextPage)
         }
@@ -100,14 +119,49 @@ const Page = () => {
     const getData = (tab:string) =>{
         switch(tab){
             case "0":
-                getDeposits()
+                getDeposits(Number(page))
                 break;
             case "1":
                 getAccountBank()
                 getBanks()
                 break;
             default:
-                getDeposits()
+                getDeposits(Number(page))
+        }
+    }
+
+    const getDepositosFromDepositoEmpresa=async(id:number) =>{
+        try{
+            if(depositosResponse == undefined) return
+            const result = depositosResponse.results.find(item=>item.id == id)
+            if (result == undefined) return 
+            if(result.depositos != undefined){
+                const updateDepositos = depositosResponse.results.map(item=>{
+                    if(item.id == id){
+                        item.depositos = undefined
+                    }
+                    return item
+                })
+                setDepositosResponse({
+                    ...depositosResponse,
+                    results:updateDepositos
+                })
+            }else{
+                const res:Deposito[] = await GetDepositosFromDepositoEmpresa(id)
+                // const record = 
+                const updateDepositos = depositosResponse.results.map(item=>{
+                    if(item.id == id){
+                        item.depositos = res
+                    }
+                    return item
+                })
+                setDepositosResponse({
+                    ...depositosResponse,
+                    results:updateDepositos
+                })
+            }
+        }catch(err){
+            console.log(err)
         }
     }
 
@@ -119,7 +173,7 @@ const Page = () => {
         }
     },[])
     return(
-        <div>
+        <div className="h-screen">
           
              <Tab.Group defaultIndex={tabIndex != null ? Number(tabIndex):0}>
 
@@ -146,7 +200,7 @@ const Page = () => {
                     <Tab.Panels className={"p-2"}>
                         <Tab.Panel className={"w-full relative"}>
                             
-              <span className="text-xl font-medium">Reservas 
+              <span className="text-xl font-medium">Depositos
               <span className="text-xl text-gray-500  font-normal">({depositosResponse?.count || 0})</span></span>
             <div className="pt-2 pb-4 flex flex-wrap justify-between md:items-center relative h-[70px]">
                 
@@ -154,7 +208,7 @@ const Page = () => {
                 
                 <button className="button-inv" disabled={loadingDepositos}  onClick={()=>{
                     setDepositosResponse(undefined)
-                    getDeposits()
+                    getDeposits(Number(page))
                     // getReservas(filterData,1)
                     }}>
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -168,6 +222,7 @@ const Page = () => {
                     setPage={(page)=>{
                         // console.log(Math.ceil(paginationProps.count/paginationProps.pageSize))
                         appendSerachParams("page",page.toString())
+                        getDeposits(page)
                         // getReservas(filterData,page)
                         setPaginationProps({
                             ...paginationProps,
@@ -183,11 +238,12 @@ const Page = () => {
 
             </div>
 
-                            <Depositos
+                            <DepositosEmpresa
                             loading={loadingDepositos}
                             depositos={depositosResponse?.results || []}
                             order={order}
                             changeOrder={(order)=>setOrder(order)}
+                            getDepositosFromDepositoEmpresa={getDepositosFromDepositoEmpresa}
                             />
                             {/* Depositos */}
                         </Tab.Panel>

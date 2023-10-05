@@ -53,16 +53,22 @@ const SideBar = () =>{
               <Disclosure.Panel className="px-4  text-sm text-gray-500">
               <ul id="dropdown-example" className="space-y-2 py-1">
                   <li>
+                     <Link href={adminRoutes.manage.empresas} 
+                     className={`${pathname == adminRoutes.manage.empresas && "bg-gray-200 dark:bg-gray-700"}
+                     flex items-center w-full p-2 text-gray-900 transition duration-75  pl-11 group hover:bg-gray-200
+                     dark:text-white dark:hover:bg-gray-700`}>Empresas</Link>
+                  </li>
+                  <li>
                      <Link href={adminRoutes.manage.users} 
                      className={`${pathname == adminRoutes.manage.users && "bg-gray-200 dark:bg-gray-700"}
                      flex items-center w-full p-2 text-gray-900 transition duration-75  pl-11 group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700`}>Usuarios</Link>
                   </li>
-                  <li>
+                  {/* <li>
                      <Link href={adminRoutes.manage.establecimientos} 
                      className={`${pathname == adminRoutes.manage.establecimientos && "bg-gray-200 dark:bg-gray-700"}
                      flex items-center w-full p-2 text-gray-900 transition duration-75  pl-11 group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700`}>Establecimientos</Link>
-                  </li>
-                 
+                  </li> */}
+
             </ul>
               </Disclosure.Panel>
             </>
@@ -83,6 +89,20 @@ const SideBar = () =>{
                <path fillRule="evenodd" d="M22.5 9.75h-21v7.5a3 3 0 003 3h15a3 3 0 003-3v-7.5zm-18 3.75a.75.75 0 01.75-.75h6a.75.75 0 010 1.5h-6a.75.75 0 01-.75-.75zm.75 2.25a.75.75 0 000 1.5h3a.75.75 0 000-1.5h-3z" clipRule="evenodd" />
                </svg>
                <span className="ml-3">Depósitos</span>
+            </Link>
+         </li>
+
+         <li>
+            <Link href={adminRoutes.system.cronjobs} className={`${pathname == adminRoutes.system.cronjobs && "bg-gray-200 dark:bg-gray-700"}
+                     flex items-center w-full p-2 text-gray-900 transition duration-75 group hover:bg-gray-200 dark:text-white
+                      dark:hover:bg-gray-700`}>
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" 
+               className={`w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white
+               ${pathname == adminRoutes.system.cronjobs && " dark:text-white"}`}>
+                  <path d="M12.75 12.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM7.5 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM8.25 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM9.75 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM10.5 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM12.75 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM14.25 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM15 17.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM16.5 15.75a.75.75 0 100-1.5.75.75 0 000 1.5zM15 12.75a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM16.5 13.5a.75.75 0 100-1.5.75.75 0 000 1.5z" />
+                  <path fillRule="evenodd" d="M6.75 2.25A.75.75 0 017.5 3v1.5h9V3A.75.75 0 0118 3v1.5h.75a3 3 0 013 3v11.25a3 3 0 01-3 3H5.25a3 3 0 01-3-3V7.5a3 3 0 013-3H6V3a.75.75 0 01.75-.75zm13.5 9a1.5 1.5 0 00-1.5-1.5H5.25a1.5 1.5 0 00-1.5 1.5v7.5a1.5 1.5 0 001.5 1.5h13.5a1.5 1.5 0 001.5-1.5v-7.5z" clipRule="evenodd" />
+               </svg>
+               <span className="ml-3">Cron Jobs</span>
             </Link>
          </li>
 
