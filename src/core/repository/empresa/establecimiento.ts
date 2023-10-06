@@ -1,5 +1,5 @@
 import { redirectToLogin } from "@/context/actions"
-import { API_URL, MB_API_KEY } from "@/context/config"
+import { API_URL, LOCAL_URL, MB_API_KEY } from "@/context/config"
 
 
 export async function GetEstablecimientos() {
@@ -14,8 +14,20 @@ export async function GetEstablecimientos() {
   return res.json()
 }
 
+export async function GetEstablecimientosEmpresa(empresaUuid:string) {
+  const res = await fetch(`${LOCAL_URL}/api/empresa/establecimientos?empresaUuid=${empresaUuid}`)
+  if(res.status == 401) {
+    redirectToLogin()
+  }
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data')
+  }
+  return res.json()
+}
+
 export async function getEstablecimiento(uuid:string){
-    const res = await fetch(`../../api/establecimiento/${uuid}`)
+    const res = await fetch(`${LOCAL_URL}/api/establecimiento/${uuid}`)
     if (!res.ok) {
         // This will activate the closest `error.js` Error Boundary
         throw new Error('Failed to fetch data')

@@ -76,7 +76,7 @@
     @apply  sm:p-2
   }
   .link {
-    @apply text-primary underline text-sm font-semibold
+    @apply text-primary underline text-sm font-medium
   }
 }
 

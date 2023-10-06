@@ -1,9 +1,11 @@
 "use client"
 import EmpresaAdministradores from "@/components/empresa/EmpresaAdministradores"
 import EmpresaDetail from "@/components/empresa/EmpresaDetail"
+import EstablecimientosTable from "@/components/empresa/establecimientos/EstablecimientosTable"
 import CreateUserNegocioDialog from "@/components/manage/users/CreateUserNegocioDialog"
 import Loading from "@/components/util/loaders/Loading"
 import { GetEmpresa } from "@/core/repository/empresa/empresa"
+import { GetEstablecimientosEmpresa } from "@/core/repository/empresa/establecimiento"
 import { GetUsersEmpresa } from "@/core/repository/empresa/manage"
 import { Empresa } from "@/core/type/empresa/empresa"
 import { UserRol } from "@/core/type/enums"
@@ -23,10 +25,11 @@ const Page = ({ params }:{ params:{uuid:string}}) =>{
     const router = useRouter()
     const [loadingEmpresa,setLoadingEmpresa] = useState(false)
     const [openDialogCreateUser,setOpenDialogCreateUser] = useState(false)
-    const [loadingEstablecimienos,setLoadingEstablecimientos] = useState(false)
+    const [loadingEstablecimientos,setLoadingEstablecimientos] = useState(false)
     const [loadingAdministradores,setLoadingAdministradores] = useState(false)
     const [empresa,setEmpresa] = useState<Empresa | undefined>(undefined)
     const [administradores,setAdministradores] = useState<AdministradorEmpresa[]>([])
+    const [establecimientos,setEstablecimientos] = useState<Establecimiento[]>([])
     const appendSerachParams = (key:string,value:string)=>{
         current.set(key,value);
         const search = current.toString();
@@ -41,6 +44,18 @@ const Page = ({ params }:{ params:{uuid:string}}) =>{
             setLoadingEmpresa(false)
         }catch(err){
             setLoadingEmpresa(false)
+            console.log(err)
+        }
+    }
+
+    const getEstablecimientos = async() => {
+        try{
+            setLoadingEstablecimientos(true)
+            const res:Establecimiento[] = await GetEstablecimientosEmpresa(params.uuid)
+            setEstablecimientos(res)
+            setLoadingEstablecimientos(false)
+        }catch(err){
+            setLoadingEstablecimientos(false)
             console.log(err)
         }
     }
@@ -66,14 +81,16 @@ const Page = ({ params }:{ params:{uuid:string}}) =>{
     },[empresa])
     useEffect(()=>{
         if(empresa == undefined){
+            getEstablecimientos()
             getEmpresa()
         }
     },[])
 
     return (
         <>
-        <div className="p-1 xl:p-2">
+        <div className="">
             {/* {JSON.stringify(empresa)} */}
+
             <div className="flex space-x-2 items-center">
                 {/* <Link href={""} className="link">Administrar</Link> */}
                 <span className="text-sm text-gray-600 font-semibold noSelect">Administrar</span>
@@ -142,6 +159,12 @@ const Page = ({ params }:{ params:{uuid:string}}) =>{
                 </Tab.Panel>
 
                 <Tab.Panel className={"w-full"}>
+                    <EstablecimientosTable
+                    establecimientos={establecimientos}
+                    loading={loadingEstablecimientos}
+                    empresaUuid={params.uuid}
+                    empresaName={empresa?.name || ""}
+                    />
                 </Tab.Panel>
 
 

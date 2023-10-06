@@ -71,7 +71,7 @@ export default function RootLayout({
           </button>
           </div>
 
-          <div className='px-2'>
+          <div className='p-1 xl:p-2'>
          {children}
           </div>
 

@@ -14,8 +14,10 @@ type Establecimiento = {
     longitud:string
     latitud:string
     name:string
-    photo:string
+    photo?:string
     portada:string
+    estado:number
+    visibility:boolean
 }
 
 type EstablecimientoData = {

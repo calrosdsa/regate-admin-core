@@ -1,4 +1,4 @@
-import { API_URL } from "@/context/config"
+import { API_URL, LOCAL_URL } from "@/context/config"
 
 export async function GetAmenities(){
     const res = await fetch(`../../api/labels/amenities`)
@@ -34,7 +34,7 @@ export async function GetCategories(){
 }
 
 export async function GetAmenitiesEstablecimiento(id:number){
-  const res = await fetch(`../../api/establecimiento/amenities/?id=${id}`)
+  const res = await fetch(`${LOCAL_URL}/api/establecimiento/amenities/?id=${id}`)
   if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
       throw new Error('Failed to fetch data')
@@ -45,7 +45,7 @@ export async function GetAmenitiesEstablecimiento(id:number){
 }
 
 export async function GetRulesEstablecimiento(id:number){
-  const res = await fetch(`../../api/establecimiento/rules/?id=${id}`)
+  const res = await fetch(`${LOCAL_URL}/api/establecimiento/rules/?id=${id}`)
   if (!res.ok) {
       // This will activate the closest `error.js` Error Boundary
       throw new Error('Failed to fetch data')
