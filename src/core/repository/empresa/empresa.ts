@@ -18,3 +18,15 @@ export async function GetEmpresa(uuid:string){
       }
       return res.json()
 }
+
+export async function CreateEmpresa(data:string){
+  const res = await fetch(`${LOCAL_URL}/api/empresa/`,{
+    method:"POST",
+    body:data
+  })
+  if (!res.ok) {
+      // This will activate the closest `error.js` Error Boundary
+      throw new Error('Failed to fetch data')
+    }
+    return res.json()
+}

@@ -1,5 +1,6 @@
 "use client"
 
+import CreateEmpresaDialog from "@/components/empresa/CreateEmpresaDialog"
 import Loading from "@/components/util/loaders/Loading"
 import { GetEmpresasByEstado } from "@/core/repository/empresa/empresa"
 import { GetEstablecimientos } from "@/core/repository/empresa/establecimiento"
@@ -11,6 +12,7 @@ import { useEffect, useState } from "react"
   export default function Page(){
     const [empresas,setEmpresas] = useState<Empresa[]>([])
     const [loading,setLoading] = useState(false)
+    const [openCreateDilogEmpresa,setOpenDialogCreateEmpresa] = useState(false)
     const getEmpresas = async()=>{
         try{
             setEmpresas([])
@@ -32,6 +34,14 @@ import { useEffect, useState } from "react"
     // const data:Establecimiento[] = await getData()
 
     return (
+        <>
+        {openCreateDilogEmpresa&&
+        <CreateEmpresaDialog
+        open ={openCreateDilogEmpresa}
+        close={()=>setOpenDialogCreateEmpresa(false)}
+        addEmpresa={(e)=>setEmpresas(d=>[...d,e])}
+        />
+        }
         <div className="h-screen overflow-auto p-1 sm:p-2">
 
         <div className="flex space-x-2 items-center">
@@ -46,8 +56,8 @@ import { useEffect, useState } from "react"
 
 
             <div className=" flex space-x-3 pt-3">
-         <Link href={"/create-establecimiento"}
-          className="button">Crear empresa</Link>   
+         <button onClick={()=>setOpenDialogCreateEmpresa(true)}
+          className="button">Crear empresa</button>   
           <button className="button w-min " disabled={loading} onClick={()=>getEmpresas()}>
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
                 <path fillRule="evenodd" d="M4.755 10.059a7.5 7.5 0 0112.548-3.364l1.903 1.903h-3.183a.75.75 0 100 1.5h4.992a.75.75 0 00.75-.75V4.356a.75.75 0 00-1.5 0v3.18l-1.9-1.9A9 9 0 003.306 9.67a.75.75 0 101.45.388zm15.408 3.352a.75.75 0 00-.919.53 7.5 7.5 0 01-12.548 3.364l-1.902-1.903h3.183a.75.75 0 000-1.5H2.984a.75.75 0 00-.75.75v4.992a.75.75 0 001.5 0v-3.18l1.9 1.9a9 9 0 0015.059-4.035.75.75 0 00-.53-.918z" clipRule="evenodd" />
@@ -95,5 +105,7 @@ import { useEffect, useState } from "react"
        </div>
 
         </div>
+        </>
+
     )
 }

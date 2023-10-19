@@ -1,6 +1,9 @@
 type EstablecimientoDetail = {
     establecimiento:Establecimiento
     setting_establecimiento:SettingEstablecimiento
+    establecimiento_photos:Photo[]
+    attention_schedule_week:AttentionSchedule[]
+
 }
 
 type Establecimiento = {
@@ -28,6 +31,25 @@ type EstablecimientoData = {
     photo:string
     uuid:string
 }
+
+type AttentionSchedule = {
+    id:number
+    day_week:number
+    day_name:string
+    establecimiento_id:number
+    open:boolean
+    closed:boolean
+    schedule_interval:AttentionScheduleTime[]
+}
+
+type AttentionScheduleTime = {
+    id:number
+    schedule_id:number
+    start_time:string
+    end_time:string
+    deleted:boolean
+}
+
 
 type Place = {
     features:Feature[]

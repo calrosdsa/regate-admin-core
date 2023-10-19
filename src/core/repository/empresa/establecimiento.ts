@@ -14,6 +14,33 @@ export async function GetEstablecimientos() {
   return res.json()
 }
 
+export async function VerificarEstablecimiento(establecimentoId:number) {
+  const res = await fetch(`${LOCAL_URL}/api/establecimiento/verificar?id=${establecimentoId}`)
+  if(res.status == 401) {
+    redirectToLogin()
+  }
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data')
+  }
+  return res.json()
+}
+
+export async function BloquearEstablecimiento(establecimientoId:number) {
+  const res = await fetch(`${LOCAL_URL}/api/establecimiento/bloquear?id=${establecimientoId}`)
+  if(res.status == 401) {
+    redirectToLogin()
+  }
+  if (!res.ok) {
+    // This will activate the closest `error.js` Error Boundary
+    throw new Error('Failed to fetch data')
+  }
+  return res.json()
+}
+
+
+
+
 export async function GetEstablecimientosEmpresa(empresaUuid:string) {
   const res = await fetch(`${LOCAL_URL}/api/empresa/establecimientos?empresaUuid=${empresaUuid}`)
   if(res.status == 401) {

@@ -1,3 +1,4 @@
+import MenuLayout from "@/components/util/button/MenuLayout";
 import CommonImage from "@/components/util/image/CommonImage";
 import Loader from "@/components/util/loaders/Loader";
 import { EstablecimientoEstado } from "@/core/type/enums";
@@ -9,8 +10,6 @@ const EstablecimientoInfo = ({data,loading}:{
 
     return(
         <div className="w-full shadow-md pt-2">
-
-
             <div className="bg-gray-200 w-full p-2 grid">
                 <span className="font-medium">Información general sobre la establecimiento </span>
             </div>
@@ -36,10 +35,21 @@ const EstablecimientoInfo = ({data,loading}:{
             </div>
             } 
 
+            <div className="grid">  
 
-            {data.establecimiento.estado == EstablecimientoEstado.ESTABLECIMIENTO_PENDIENTE &&
-            <div className="grid">                
             <span className=" subtitle text-base">Estado del establecimiento</span>
+
+            {data.establecimiento.estado == EstablecimientoEstado.ESTABLECIMIENTO_BLOQUEADO &&
+            <div className="flex space-x-2 text-gray-600 items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" 
+            className="w-6 h-6">
+  <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span className="text-lg">Bloqueado</span>
+            </div>
+            }
+             {data.establecimiento.estado == EstablecimientoEstado.ESTABLECIMIENTO_PENDIENTE &&
+            
             <div className="flex space-x-2 text-gray-600 items-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" 
             className="w-6 h-6">
@@ -47,12 +57,9 @@ const EstablecimientoInfo = ({data,loading}:{
             </svg>
             <span className="text-lg">Verificacion Pendiente</span>
             </div>
-            </div>
             }
 
             {data.establecimiento.estado == EstablecimientoEstado.ESTABLECIMIENTO_VERIFICADO &&
-            <div className="grid gap-y-1">                
-            <span className=" subtitle text-base">Estado del establecimiento</span>
             <div className="flex space-x-2 text-green-600 items-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
             <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -60,8 +67,14 @@ const EstablecimientoInfo = ({data,loading}:{
             <span className="text-lg">Verificado
             </span>
             </div>
-            </div>
             }
+
+
+            </div>
+
+           
+
+          
 
             {data.establecimiento.phone_number != undefined &&
                 <div className="grid">
@@ -98,16 +111,10 @@ const EstablecimientoInfo = ({data,loading}:{
                 w={250}
                 h={200}
                 className=" rounded-lg"
-                />
+                />  
             </div>
             }
-
-
             </div>
-
-
-          
-
         </div>
 
     }

@@ -69,5 +69,6 @@ export enum DepositoEstado {
 
 export enum EstablecimientoEstado {
     ESTABLECIMIENTO_VERIFICADO = 1,
-    ESTABLECIMIENTO_PENDIENTE = 2
+    ESTABLECIMIENTO_PENDIENTE = 2,
+    ESTABLECIMIENTO_BLOQUEADO = 3,
 }

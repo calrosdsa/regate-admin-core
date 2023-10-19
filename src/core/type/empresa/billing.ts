@@ -26,6 +26,7 @@ type DepositoEmpresa = {
     id:number
     uuid:string
     empresa_id:number
+    empresa_name:string
     created_at:string
     total_income:number
     date_paid:string

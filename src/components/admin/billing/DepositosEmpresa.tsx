@@ -39,7 +39,7 @@ const DepositosEmpresa = ({loading,changeOrder,order,depositos,getDepositosFromD
                 </div>
                 </th>
 
-                <th className="headerTable  cursor-pointer w-64 flex ">Ingreso</th>
+                <th className="headerTable cursor-pointer w-64 flex">Ingreso</th>
                 {/* <th className="headerTable w-28">
                     Monto 
                 </th>

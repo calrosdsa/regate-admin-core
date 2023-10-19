@@ -1,14 +1,15 @@
 import { Menu, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useRef, useState } from 'react'
 
-export default function MenuLayout({children}:{
-    children:React.ReactNode
+export default function MenuLayout({children,className=""}:{
+  className?:string
+  children:React.ReactNode
 }) {
   return (
     <div className="h-7">
-      <Menu as="div" className="relative inline-block text-left">
+      <Menu as="div" className={`relative inline-block text-left ${className}`}>
         <div>
-          <Menu.Button className="rounded-full hover:bg-gray-200 cursor-pointer flex justify-center noSelect">
+          <Menu.Button className="rounded-full noSelect hover:bg-gray-200 cursor-pointer flex justify-center">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" 
                 className="w-8 h-8 p-1">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z" />
@@ -25,7 +26,7 @@ export default function MenuLayout({children}:{
           leaveTo="transform opacity-0 scale-95"
         >
           <Menu.Items className="absolute right-1 z-10 mt-2 overflow-y-auto bg-white shadow-lg ring-1 ring-black
-         ring-opacity-5 focus:outline-none">
+          rounded-md ring-opacity-5 focus:outline-none">
             {children}
             {/* <div className="px-1 py-1 ">
 
