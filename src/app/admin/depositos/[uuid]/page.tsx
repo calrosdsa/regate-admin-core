@@ -13,7 +13,7 @@ import { useAppDispatch } from "@/context/reduxHooks";
 import { uiActions } from "@/context/slices/uiSlice";
 import { GetDeposito, GetReservasPagadas, UploadComprobanteDeposito } from "@/core/repository/empresa/billing";
 import { GetReservaDetail } from "@/core/repository/reservas";
-import { Order, OrderQueue, ReporteId } from "@/core/type/enums";
+import { DepositoEstado, Order, OrderQueue, ReporteId } from "@/core/type/enums";
 import { adminRoutes } from "@/core/util/routes";
 import { Tab } from "@headlessui/react";
 import axios from "axios";
@@ -167,7 +167,8 @@ const Page = ({ params }: { params: { uuid: string } }) =>{
             const data:string = await UploadComprobanteDeposito(formData) 
             setDeposito({
                 ...deposito,
-                comprobante_url:data
+                comprobante_url:data,
+                estado:DepositoEstado.EMITIDO
             })
             toast.success("¡Los cambios realizados han sido guardados exitosamente!")
             dispatch(uiActions.setLoaderDialog(false))
