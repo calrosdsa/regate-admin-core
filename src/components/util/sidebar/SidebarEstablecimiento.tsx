@@ -137,21 +137,7 @@ const SideBarEstablecimiento = () =>{
             </Link>
          </li>
 
-            
-      {user?.rol == UserRol.ADMIN_USER_ROL &&
-      <li>
-
-      <Link href={"/admin/manage/establecimientos"} className="flex items-center p-2 text-gray-900 rounded-lg cursor-pointer space-x-3
-      dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">
-   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" 
-   className="w-6 h-6 text-gray-500 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white 
-   ">
-  <path fillRule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm5.03 4.72a.75.75 0 010 1.06l-1.72 1.72h10.94a.75.75 0 010 1.5H10.81l1.72 1.72a.75.75 0 11-1.06 1.06l-3-3a.75.75 0 010-1.06l3-3a.75.75 0 011.06 0z" clipRule="evenodd" />
-</svg>
-   <span className="flex-1 ml-3 whitespace-nowrap font-medium">Volver al panel admin</span>
-      </Link>
-         </li>
-   }
+        
 
          {/* <li>
             <a href="#" className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700">

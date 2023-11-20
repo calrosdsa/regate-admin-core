@@ -15,6 +15,9 @@ export const adminRoutes = {
     },
     system:{
         cronjobs:`${rootAdmin}/system/cron-jobs`
+    },
+    notifications:{
+        root:`${rootAdmin}/notifications`
     }
 }
 

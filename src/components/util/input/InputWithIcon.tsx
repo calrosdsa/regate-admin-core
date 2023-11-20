@@ -27,7 +27,7 @@ const InputWithIcon = ({onChange,value,label,name,type="text",error,icon,classNa
         autoFocus
         value={value}
         // minLength={8}
-        className={` border-[1px] rounded-lg rounded-b-lg p-2 h-10 w-full
+        className={` border-[1px] rounded-lg rounded-b-lg p-2 h-9 w-full
         border-gray-400 mt-1 text-sm text-gray-900 focus:outline-blue-600
         ${icon != undefined && "pl-7"}`}
         placeholder={placeholder} />
