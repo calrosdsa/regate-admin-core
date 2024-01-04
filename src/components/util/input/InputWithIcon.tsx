@@ -10,8 +10,9 @@ interface Props{
     placeholder?:string
     icon?:()=>JSX.Element
     className?:string
+    required?:boolean
 }
-const InputWithIcon = ({onChange,value,label,name,type="text",error,icon,className,placeholder=""}:Props) =>{
+const InputWithIcon = ({onChange,value,label,name,type="text",error,icon,className,placeholder="",required = true}:Props) =>{
 
   return(
     <div className={`relative mt-3 ${className}`}>
@@ -22,7 +23,7 @@ const InputWithIcon = ({onChange,value,label,name,type="text",error,icon,classNa
         icon()
         }
     <input name={name}  type={type}
-      required
+        required={required}
         onChange={onChange} 
         autoFocus
         value={value}

@@ -53,8 +53,6 @@ import { useEffect, useState } from "react"
                 </svg>
                 <span className="text-sm text-gray-500 font-semibold  noSelect">Empresas</span>
             </div>
-
-
             <div className=" flex space-x-3 pt-3">
          <button onClick={()=>setOpenDialogCreateEmpresa(true)}
           className="button">Crear empresa</button>   

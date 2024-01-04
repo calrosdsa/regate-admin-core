@@ -44,7 +44,8 @@ const SideBar = () =>{
          {({ open }) => (
             <>
               <Disclosure.Button className="flex items-center w-full p-2 text-gray-900 transition duration-75  group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
-              <svg aria-hidden="true" className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+              <svg aria-hidden="true" className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400
+               group-hover:text-gray-900 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M5 3a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2V5a2 2 0 00-2-2H5zM5 11a2 2 0 00-2 2v2a2 2 0 002 2h2a2 2 0 002-2v-2a2 2 0 00-2-2H5zM11 5a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V5zM11 13a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
               {/* <svg aria-hidden="true" className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clipRule="evenodd"></path></svg> */}
                   <span className="flex-1 ml-3 text-left whitespace-nowrap" >Administrar</span>
                   <svg  className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" 
@@ -77,6 +78,53 @@ const SideBar = () =>{
 
     </Disclosure>
          </li>
+
+
+
+         <li>
+         <Disclosure as={"div"} defaultOpen={true}>
+         {({ open }) => (
+            <>
+              <Disclosure.Button className="flex items-center w-full p-2 text-gray-900 transition duration-75  group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700" aria-controls="dropdown-example" data-collapse-toggle="dropdown-example">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
+               className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400
+               group-hover:text-gray-900 dark:group-hover:text-white">
+  <path strokeLinecap="round" strokeLinejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+</svg>
+
+              {/* <svg aria-hidden="true" className="flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 group-hover:text-gray-900 dark:text-gray-400 dark:group-hover:text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10 2a4 4 0 00-4 4v1H5a1 1 0 00-.994.89l-1 9A1 1 0 004 18h12a1 1 0 00.994-1.11l-1-9A1 1 0 0015 7h-1V6a4 4 0 00-4-4zm2 5V6a2 2 0 10-4 0v1h4zm-6 3a1 1 0 112 0 1 1 0 01-2 0zm7-1a1 1 0 100 2 1 1 0 000-2z" clipRule="evenodd"></path></svg> */}
+                  <span className="flex-1 ml-3 text-left whitespace-nowrap" >Data</span>
+                  <svg  className="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" 
+                  xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
+              </Disclosure.Button>
+              <Disclosure.Panel className="px-4  text-sm text-gray-500">
+              <ul id="dropdown-example" className="space-y-2 py-1">
+                  <li>
+                     <Link href={adminRoutes.data.labels} 
+                     className={`${pathname == adminRoutes.data.labels && "bg-gray-200 dark:bg-gray-700"}
+                     flex items-center w-full p-2 text-gray-900 transition duration-75  pl-11 group hover:bg-gray-200
+                     truncate dark:text-white dark:hover:bg-gray-700`}>Etiquetas</Link>
+                  </li>
+                  {/* <li>
+                     <Link href={adminRoutes.manage.users} 
+                     className={`${pathname == adminRoutes.manage.users && "bg-gray-200 dark:bg-gray-700"}
+                     flex items-center w-full p-2 text-gray-900 transition duration-75  pl-11 group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700`}>Usuarios</Link>
+                  </li> */}
+
+                  {/* <li>
+                     <Link href={adminRoutes.manage.establecimientos} 
+                     className={`${pathname == adminRoutes.manage.establecimientos && "bg-gray-200 dark:bg-gray-700"}
+                     flex items-center w-full p-2 text-gray-900 transition duration-75  pl-11 group hover:bg-gray-200 dark:text-white dark:hover:bg-gray-700`}>Establecimientos</Link>
+                  </li> */}
+
+            </ul>
+              </Disclosure.Panel>
+            </>
+          )}
+
+    </Disclosure>
+         </li>
+
 
          <li>
             <Link href={adminRoutes.depositos} className={`${pathname == adminRoutes.depositos && "bg-gray-200 dark:bg-gray-700"}

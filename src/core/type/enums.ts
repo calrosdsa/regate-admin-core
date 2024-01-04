@@ -72,3 +72,13 @@ export enum EstablecimientoEstado {
     ESTABLECIMIENTO_PENDIENTE = 2,
     ESTABLECIMIENTO_BLOQUEADO = 3,
 }
+
+export enum TypeEntity {
+    ENTITY_SALA = 1,
+    ENTITY_GROUP = 2,
+    ENTITY_ACCOUNT = 3,
+    ENTITY_BILLING = 4,
+    ENTITY_RESERVA = 5,
+    ENTITY_ESTABLECIMIENTO = 6
+
+}

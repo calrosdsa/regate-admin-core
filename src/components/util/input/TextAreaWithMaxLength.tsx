@@ -12,9 +12,9 @@ const TextAreaWithMaxLength = ({max,value,onChangeValue,label,name,className,pla
 }) =>{
 
     return (
-        <div className={`relative ${className}`}>
+        <div className={`relative ${className} mt-3`}>
            <div>
-            <span className="help-text">{label}</span>
+            <span className="label">{label}</span>
             <textarea  onChange={onChangeValue} className="textarea" value={value}
             placeholder={placeholder}
             name={name} />
